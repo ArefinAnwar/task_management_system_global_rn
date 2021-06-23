@@ -1,0 +1,30 @@
+{
+  "files": {
+    "app.js": "/static/js/app.92a6b8aa.chunk.js",
+    "app.js.map": "/static/js/app.92a6b8aa.chunk.js.map",
+    "runtime~app.js": "/static/js/runtime~app.2e9f1821.js",
+    "runtime~app.js.map": "/static/js/runtime~app.2e9f1821.js.map",
+    "static/js/2.acab0bc4.chunk.js": "/static/js/2.acab0bc4.chunk.js",
+    "static/js/2.acab0bc4.chunk.js.map": "/static/js/2.acab0bc4.chunk.js.map",
+    "favicon-16.png": "/favicon-16.png",
+    "favicon-32.png": "/favicon-32.png",
+    "favicon.ico": "/favicon.ico",
+    "index.html": "/index.html",
+    "manifest.json": "/manifest.json",
+    "serve.json": "/serve.json",
+    "static/js/2.acab0bc4.chunk.js.LICENSE.txt": "/static/js/2.acab0bc4.chunk.js.LICENSE.txt",
+    "static/media/Cancel Task.png": "/static/media/Cancel Task.9bd6f167.png",
+    "static/media/Done Task.png": "/static/media/Done Task.fcf026e4.png",
+    "static/media/Task is Done.png": "/static/media/Task is Done.cfef7f6a.png",
+    "static/media/check.png": "/static/media/check.e771f503.png",
+    "static/media/close.png": "/static/media/close.0ffdaac4.png",
+    "static/media/delete.png": "/static/media/delete.7073eba9.png",
+    "static/media/edit.png": "/static/media/edit.0bdc30cd.png",
+    "static/media/user_photo.jpg": "/static/media/user_photo.744c5c2f.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime~app.2e9f1821.js",
+    "static/js/2.acab0bc4.chunk.js",
+    "static/js/app.92a6b8aa.chunk.js"
+  ]
+}
