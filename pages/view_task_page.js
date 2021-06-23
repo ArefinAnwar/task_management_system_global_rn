@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View, TouchableOpacity, FlatList, Image, ScrollView} from 'react-native';
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, Image, ScrollView } from 'react-native';
 
 import * as firebase from "firebase";// Firebase Library
 import { firebaseConfig } from "../Firebase_config";// Firebase Library
@@ -37,7 +37,7 @@ export default function view_task_page({ route, navigation }) {
 
 
 
-    const [user_name, set_user_name] = React.useState(null); //User Data
+    const [user_name, set_user_name] = React.useState(""); //User Data
 
 
 
@@ -79,9 +79,9 @@ export default function view_task_page({ route, navigation }) {
         var today = mm + '/' + dd + '/' + yyyy;
 
         var time = new Date();
-        
+
         var current_time = time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-        
+
         firebase.default
             .firestore()
             .collection("tasks")
@@ -121,7 +121,10 @@ export default function view_task_page({ route, navigation }) {
                 console.log(n)
 
                 //checking if value = null
-                set_user_name(n); //setting heading
+                if (user_name == "") {
+                    set_user_name(n); //setting heading
+                };
+
 
                 //set_user_name(n);
                 //set_user_mail(e);
@@ -199,7 +202,8 @@ export default function view_task_page({ route, navigation }) {
                 }
             });
         //console.log(done_by_list);
-        if (task_data_received) {
+
+        if (task_data_received && user_name !== "") {
             firebase.default
                 .firestore()
                 .collection("tasks")
@@ -219,7 +223,10 @@ export default function view_task_page({ route, navigation }) {
 
                 }).catch((e) => {
                     console.log(e);
-                })
+                });
+            navigation.setOptions({
+                title: task_heading,
+            });
         };
 
 
@@ -302,7 +309,7 @@ export default function view_task_page({ route, navigation }) {
                         <ScrollView>
                             <Text style={{ fontSize: 18, marginLeft: 30, marginRight: 30, marginTop: 30 }}>{task_body}</Text>
                         </ScrollView>
-                        
+
                     </View>
 
                     <View style={{ width: '100%', flexDirection: 'row', marginTop: -10, alignItems: 'center', justifyContent: 'center' }}>
@@ -347,29 +354,36 @@ export default function view_task_page({ route, navigation }) {
                             }
                             else {
                                 return (
-                                    <View style={{ flexDirection: 'row' }}>
-                                        <TouchableOpacity onPress={() => { navigation.navigate('Task Done By', { data: t_id }) }}>Task Done By</TouchableOpacity>///
-                                        {(() => {
-                                            if (user_task_done) {
-                                                return (
-                                                    <View>
-                                                        <Image source={task_done_illus} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-start' }} />
-                                                        <TouchableOpacity style={styles.not_done_task} onPress={will_not_do_task}>
-                                                            <Image source={cancel_task_illus} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-start' }} />
-                                                        </TouchableOpacity>
-                                                    </View>
+                                    <View style={{ flexDirection: 'row', width: '80%', alignItems: 'center', justifyContent: 'center' }}>
+                                        <View style={{ flexDirection: 'row', width: 1117, }}>
 
-                                                )
-                                            };
-                                            if (user_task_done === false) {
-                                                return (
-                                                    <TouchableOpacity style={styles.done_task} onPress={task_is_done}>
-                                                        <Image source={done_task_illus} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25 }} />
-                                                    </TouchableOpacity>
-                                                )
-                                            };
-                                        })()}
+                                            {(() => {
+                                                if (user_task_done) {
+                                                    return (
+                                                        <View style={{ flexDirection: 'row', width: '63%', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                                            <Image source={task_done_illus} style={{ width: 174, height: 132, marginTop: 30, marginRigth: 20, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end' }} />
+                                                            <TouchableOpacity style={styles.not_done_task} onPress={will_not_do_task}>
+                                                                <Image source={cancel_task_illus} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end' }} />
+                                                            </TouchableOpacity>
+                                                        </View>
+
+                                                    )
+                                                };
+                                                if (user_task_done === false) {
+                                                    return (
+                                                        <View style={{ flexDirection: 'row', width: '62%', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                                            <TouchableOpacity style={styles.done_task} onPress={task_is_done}>
+                                                                <Image source={done_task_illus} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end' }} />
+                                                            </TouchableOpacity>
+                                                        </View>
+                                                    )
+                                                };
+                                            })()}
+
+                                        </View>
+
                                     </View>
+
 
                                 )
                             };
@@ -377,7 +391,7 @@ export default function view_task_page({ route, navigation }) {
 
 
                     </View>
-                    <TouchableOpacity style = {{alignItems: 'center', justifyContent: 'center',marginTop: -10, width:84, height:25, borderRadius: 25, backgroundColor: '#7FFFDD'}} onPress={() => { navigation.navigate('Task Done By', { data: t_id }) }}><Text style = {{color: 'white', fontSize: 12}}>Task Done By</Text></TouchableOpacity>
+                    <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', marginTop: -10, width: 84, height: 25, borderRadius: 25, backgroundColor: '#7FFFDD' }} onPress={() => { navigation.navigate('Task Done By', { data: t_id }) }}><Text style={{ color: 'white', fontSize: 12 }}>Task Done By</Text></TouchableOpacity>
 
 
                 </View>

@@ -1,4 +1,5 @@
-import { createDrawerNavigator } from '@react-navigation/drawer';
+import { createStackNavigator } from '@react-navigation/stack';
+
 import { NavigationContainer } from '@react-navigation/native';
 import React from 'react';
 import { View, Text } from 'react-native';
@@ -19,61 +20,75 @@ import edit_task_code from './pages/edit_task_page';
 
 import task_done_by_code from './pages/task_done_by';
 
-const Drawer = createDrawerNavigator();
+const Stack = createStackNavigator();
 
 export function Navigator() {
   return (
     <NavigationContainer>
-      <Drawer.Navigator initialRouteName="Feed">
-        <Drawer.Screen
+      <Stack.Navigator initialRouteName="login">
+        <Stack.Screen
           name="Login"
           component={login_code}
-          options={{ drawerLabel: 'Login' }}
+          options={{ 
+            title: 'Login',
+            headerShown: false
+          }}
         />
-        <Drawer.Screen
+        <Stack.Screen
           name="Add Task"
           component={add_task_code}
-          options={{ drawerLabel: 'Add Task' }}
+          options={{ 
+            title: 'Add Task' 
+          }}
         />
-        <Drawer.Screen
+        <Stack.Screen
           name="Tasks"
           component={to_do_code}
-          options={{ drawerLabel: 'Tasks' }}
+          options={{ 
+            title: 'Tasks',
+            headerShown: false
+          }}
         />
-        <Drawer.Screen
+        <Stack.Screen
           name="Edit Task"
           component={edit_task_code}
-          options={{ drawerLabel: 'Edit Task' }}
+          options={{ 
+            title: 'Edit Task',
+            headerShown: false,
+           }}
         />
-        <Drawer.Screen
+        <Stack.Screen
           name="Task Done By"
           component={task_done_by_code}
-          options={{ drawerLabel: 'Task Done By' }}
+          options={{ 
+            title: 'Task Done By' 
+          }}
         />
-        <Drawer.Screen
+        <Stack.Screen
           name="View Tasks"
           component={view_task_code}
-          options={{ drawerLabel: 'View Tasks' }}
+          options={{ 
+            title: 'View Tasks',
+          }}
         />
 
 
 
 
-        <Drawer.Screen
+        <Stack.Screen
           name="Sign-up"
           component={sign_up_code}
-          options={{ drawerLabel: 'Sign Up' }}
+          options={{ 
+            title: 'Sign Up',
+            headerShown: false
+          }}
         />
-        <Drawer.Screen
-          name="Dashboard"
-          component={dashboard_code}
-          options={{ drawerLabel: 'Dashboard' }}
-        />
+        
 
 
 
 
-      </Drawer.Navigator>
+      </Stack.Navigator>
     </NavigationContainer>
   );
 }

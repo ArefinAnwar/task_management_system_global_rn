@@ -30,7 +30,6 @@ export default function sign_up_page({ navigation }) {
     const [error_mes, set_error_mes] = React.useState(null);
 
 
-    navigation.openDrawer();
 
     const user_login = () => {
 
