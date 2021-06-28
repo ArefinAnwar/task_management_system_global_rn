@@ -1,11 +1,14 @@
 import React from 'react'
-import { StyleSheet, Text, View, TouchableOpacity, FlatList } from 'react-native'
+import { StyleSheet, Text, View, TouchableOpacity, FlatList, Image } from 'react-native'
 import * as firebase from "firebase";// Firebase Library
 import { firebaseConfig } from "../Firebase_config";// Firebase Library
 import "firebase/storage";// Firebase Library
 import 'firebase/auth';
+import moment from 'moment';
 
-export default function Tasks({navigation}) {
+import add_task from '../assets/add task.png';
+
+export default function Tasks({ navigation }) {
     const [task_list, set_task_list] = React.useState([]); //for storing all recipe data
 
     var temporary_task_list = []; //temporary storing recipe data
@@ -33,10 +36,10 @@ export default function Tasks({navigation}) {
                     temporary_task_list.push(d); //pushing data to temporary list
                 });
 
-                if (task_list.length == 0) { //checking if recipe list == null 
+                
                     set_task_list(temporary_task_list);  //we are pushing data from temp list to final recipe list
                     console.log(task_list);
-                }
+                
             });
         console.log(task_list);
         /*
@@ -81,159 +84,216 @@ export default function Tasks({navigation}) {
             }
         });*/
     });
+    const check_if_deadline_expired = (date) => {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
 
-    return (
-        <View style={styles.background_container}>
-            <View style={styles.main_content}>
-                <View style={{ marginTop: 50, width: '100%', alignItems: 'center', justifyContent: 'center', }}>
-                    <Text style={{ fontSize: 30 }}>Task Management</Text>
-                    <TouchableOpacity onPress = {() => { navigation.navigate('Add Task') }}>Add Task</TouchableOpacity>
-                </View>
-                <FlatList
-                    data={task_list}
-                    renderItem={({ item }) =>
-                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                            <View style={styles.task_main_con}>
-                                <View style={{ flexDirection: 'row' }}>
-                                    <View style={{ width: '50%' }}>
-                                        <Text style={styles.task_heading}>{item.Task_Heading}</Text>
+        today = dd + '/' + mm + '/' + yyyy;
+        console.log("Curren date", today)
+
+        
+        console.log(date);
+        console.log(moment(date, "DD/MM/YYYY").isSame(moment(today, "DD/MM/YYYY")));
+        if (moment(date, "DD/MM/YYYY").isSame(moment(today, "DD/MM/YYYY"))) {
+            return true;
+        }
+        else if(moment(date, "DD/MM/YYYY").isBefore(moment(today, "DD/MM/YYYY"))){
+            return true;
+        }
+        else if(moment(date, "DD/MM/YYYY").isAfter(moment(today, "DD/MM/YYYY"))){
+            return false;
+        }
+        else{
+            return false;
+        }
+        };
+        let date = '03/05/2017'; //DD/MM/YYYY
+        // specified parsed date
+        let d = '03/05/2017';  // specified parsed date
+        console.log(moment(date, "DD/MM/YYYY").isSame(moment(d, "DD/MM/YYYY")));
+        return (
+            <View style={styles.background_container}>
+                <View style={styles.main_content}>
+                    <View style={{ marginTop: 50, width: '100%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+                        <Text style={{ fontSize: 30, alignSelf: 'center', color: '#7FFFDD', fontWeight: 'bold' }}>Task Management</Text>
+                        <TouchableOpacity onPress={() => { navigation.navigate('Add Task') }} style={{ position: 'absolute', right: 10 }}>
+                            <Image source={add_task} style={{ width: 174, height: 132, borderRadius: 25, borderWidth: 1, borderColor: '#BCBCBC', }} />
+                        </TouchableOpacity>
+                    </View>
+                    <FlatList
+                        data={task_list}
+                        renderItem={({ item }) =>
+                            <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                                <View style={styles.task_main_con}>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <View style={{ width: '50%' }}>
+                                            <Text style={styles.task_heading}>{item.Task_Heading}</Text>
+                                        </View>
+
+                                        <View style={styles.task_owner}>
+                                            <Text style={{ fontSize: 18, color: 'white' }}>{item.Task_Owner}</Text>
+                                        </View>
                                     </View>
 
-                                    <View style={styles.task_owner}>
-                                        <Text style={{ fontSize: 18, color: 'white' }}>{item.Task_Owner}</Text>
+
+                                    <View style={{ height: 148, width: 670 }}>
+                                        <Text style={styles.task_body} numberOfLines={6}>{item.Task_Body}</Text>
                                     </View>
-                                </View>
+
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <TouchableOpacity style={styles.view_task_but} onPress={() => {
+
+                                            console.log(item.Id)
+                                            navigation.navigate("View Tasks", {
+                                                data: item.Id,
+                                            });
+                                        }}>
+                                            <Text style={{ color: 'white', fontSize: 18 }}>View Task</Text>
+                                        </TouchableOpacity>
+                                        {(() => {
+                                            
+                                            
+                                            if (check_if_deadline_expired(item.Task_Deadline)) {
+                                                return (
+                                                    <TouchableOpacity style={{
+                                                        width: 150,
+                                                        height: 40,
+
+                                                        alignItems: 'center',
+                                                        justifyContent: 'center',
+
+                                                        backgroundColor: 'red',
+
+                                                        marginTop: 45,
+                                                        marginLeft: 25,
+                                                        borderRadius: 25,
+                                                    }}>
+                                                        <Text style={{ color: 'white', fontSize: 18 }}>Deadline Expired</Text>
+                                                    </TouchableOpacity>
+                                                )
+                                            }
+                                            else {
+                                                return (
+                                                    <TouchableOpacity style={styles.task_status_but}>
+                                                        <Text style={{ color: 'white', fontSize: 18 }}>Ongoing</Text>
+                                                    </TouchableOpacity>
+                                                )
+                                            }
+                                        })()}
 
 
-                                <View style={{ height: 148, width: 670 }}>
-                                    <Text style={styles.task_body} numberOfLines = {6}>{item.Task_Body}</Text>
-                                </View>
-
-                                <View style={{ flexDirection: 'row' }}>
-                                    <TouchableOpacity style={styles.view_task_but} onPress={() => {
-
-                                        console.log(item.Id)
-                                        navigation.navigate("View Tasks", {
-                                            data: item.Id,
-                                        });
-                                    }}>
-                                        <Text style={{ color: 'white', fontSize: 18 }}>View Task</Text>
-                                    </TouchableOpacity>
-
-                                    <TouchableOpacity style={styles.task_status_but}>
-                                        <Text style={{ color: 'white', fontSize: 18 }}>Ongoing</Text>
-                                    </TouchableOpacity>
-
-                                    <View style={styles.task_deadline}>
-                                        <Text style={{ fontSize: 18 }}>Deadline: {item.Task_Deadline}</Text>
+                                        <View style={styles.task_deadline}>
+                                            <Text style={{ fontSize: 18 }}>Deadline: {item.Task_Deadline}</Text>
+                                        </View>
                                     </View>
-                                </View>
 
+                                </View>
                             </View>
-                        </View>
 
 
-                    }
-                    keyExtractor={(item) => item.Id}
-                />
+                        }
+                        keyExtractor={(item) => item.Id}
+                    />
+
+                </View>
+
 
             </View>
-
-
-        </View>
-    )
-}
-
-const styles = StyleSheet.create({
-    background_container: {
-        borderStartColor: 'background_container',
-        backgroundColor: '#fff',
-        height: '100%',
-        width: '100%',
-        fontFamily: 'NotoSans_400Regular',
-
-    },
-    main_content: {
-        backgroundColor: '#fff',
-        height: '100%',
-        width: '100%',
-
-
-    },
-
-    task_main_con: {
-        height: 325,
-        width: 719,
-        backgroundColor: '#E8FFF9',
-
-        marginLeft: 323,
-        marginTop: 100,
-
-        borderRadius: 25,
-
-        shadowColor: "rgba(0,0,0, .3)", // IOS
-        shadowOffset: { height: 1, width: 1 }, // IOS
-        shadowOpacity: 1, // IOS
-        shadowRadius: 10, //IOS
-        elevation: 2, // Android
-    },
-    task_heading: {
-        marginLeft: 30,
-        marginTop: 23,
-        fontSize: 24,
-    },
-    task_body: {
-        marginLeft: 30,
-        marginTop: 23,
-        fontSize: 16,
-    },
-    view_task_but: {
-        width: 145,
-        height: 40,
-
-        alignItems: 'center',
-        justifyContent: 'center',
-
-        backgroundColor: '#E94CEC',
-
-        marginTop: 45,
-        marginLeft: 30,
-        borderRadius: 25,
-    },
-    task_status_but: {
-        width: 124,
-        height: 40,
-
-        alignItems: 'center',
-        justifyContent: 'center',
-
-        backgroundColor: '#967CE2',
-
-        marginTop: 45,
-        marginLeft: 25,
-        borderRadius: 25,
-    },
-    task_deadline: {
-        width: 200,
-        height: 40,
-
-        alignItems: 'center',
-        justifyContent: 'center',
-
-        marginTop: 45,
-        marginLeft: 150,
-    },
-    task_owner: {
-        width: 200,
-        height: 40,
-
-        marginLeft: 125,
-        marginTop: 23,
-        borderRadius: 25,
-
-        backgroundColor: '#6AFFAF',
-
-        alignItems: 'center',
-        justifyContent: 'center',
+        )
     }
-})
+
+    const styles = StyleSheet.create({
+        background_container: {
+            borderStartColor: 'background_container',
+            backgroundColor: '#fff',
+            height: '100%',
+            width: '100%',
+            fontFamily: 'NotoSans_400Regular',
+
+        },
+        main_content: {
+            backgroundColor: '#fff',
+            height: '100%',
+            width: '100%',
+
+
+        },
+
+        task_main_con: {
+            height: 325,
+            width: 719,
+            backgroundColor: '#E8FFF9',
+
+            marginLeft: 323,
+            marginTop: 100,
+
+            borderRadius: 25,
+
+            shadowColor: "rgba(0,0,0, .3)", // IOS
+            shadowOffset: { height: 1, width: 1 }, // IOS
+            shadowOpacity: 1, // IOS
+            shadowRadius: 10, //IOS
+            elevation: 2, // Android
+        },
+        task_heading: {
+            marginLeft: 30,
+            marginTop: 23,
+            fontSize: 24,
+        },
+        task_body: {
+            marginLeft: 30,
+            marginTop: 23,
+            fontSize: 16,
+        },
+        view_task_but: {
+            width: 145,
+            height: 40,
+
+            alignItems: 'center',
+            justifyContent: 'center',
+
+            backgroundColor: '#4FFFCD',
+
+            marginTop: 45,
+            marginLeft: 30,
+            borderRadius: 25,
+        },
+        task_status_but: {
+            width: 124,
+            height: 40,
+
+            alignItems: 'center',
+            justifyContent: 'center',
+
+            backgroundColor: '#2DFF35',
+
+            marginTop: 45,
+            marginLeft: 25,
+            borderRadius: 25,
+        },
+        task_deadline: {
+            width: 200,
+            height: 40,
+
+            alignItems: 'center',
+            justifyContent: 'center',
+
+            marginTop: 45,
+            marginLeft: 150,
+        },
+        task_owner: {
+            width: 200,
+            height: 40,
+
+            marginLeft: 125,
+            marginTop: 23,
+            borderRadius: 25,
+
+            backgroundColor: '#6AFFAF',
+
+            alignItems: 'center',
+            justifyContent: 'center',
+        }
+    })

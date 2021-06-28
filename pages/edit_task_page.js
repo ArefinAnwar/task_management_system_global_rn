@@ -106,7 +106,8 @@ export default function add_task_page({ route, navigation }) {
             Task_Deadline: task_deadline,
             Task_Owner: user_name,
             Task_Owner_ID: u,
-        });
+        }).then(()=>{ navigation.goBack()});
+
 
     };
     return (
@@ -163,7 +164,7 @@ export default function add_task_page({ route, navigation }) {
                     </View>
                     <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'flex-start', alignSelf: 'stretch' }}>
                         <View style={{ marginLeft: 900, marginTop: 20, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                            <TouchableOpacity style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} onPress={add_task}><Image source={tick} style={{ width: 34, height: 34 }} /><Text style={{ color: '#2DFF35', fontSize: 18 }}>Done</Text></TouchableOpacity>
+                            <TouchableOpacity  style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }} onPress={add_task}><Image source={tick} style={{ width: 34, height: 34 }} /><Text style={{ color: '#2DFF35', fontSize: 18 }}>Done</Text></TouchableOpacity>
                             <TouchableOpacity onPress={()=>{ navigation.goBack() }} style={{ marginLeft: 30, flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}><Image source={cross} style={{ width: 28, height: 28 }} /><Text style={{ color: '#F83C3C', fontSize: 18 }}>Cancel</Text></TouchableOpacity>
                         </View>
                     </View>

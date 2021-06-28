@@ -68,31 +68,31 @@ export default function sign_up_page({ navigation }) {
         <View style={styles.background_container}>
             <View style={styles.main_content}>
                 <View style={styles.login_main_con}>
-                    <View style = {{justifyContent: 'center', alignItems: 'center'}}>
+                    <View style={{ justifyContent: 'center', alignItems: 'center' }}>
                         <View style={styles.login_all_content_inner_con}>
-                        <Text style={{ color: '#7FFFDD', fontSize: 36, fontWeight: '400' }}>Task Management</Text>
-                        <View>
-                            <Text style={{ color: '#7FFFDD', fontSize: 64, fontWeight: 'bold' }}>Login</Text>
-                        </View>
+                            <Text style={{ color: '#7FFFDD', fontSize: 36, fontWeight: '400' }}>Task Management</Text>
+                            <View>
+                                <Text style={{ color: '#7FFFDD', fontSize: 64, fontWeight: 'bold' }}>Login</Text>
+                            </View>
 
-                        <View style={{ marginTop: 40, }}>
-                            <Text style={{ fontSize: 20, color: '#7FFFDD', marginLeft: 15,}}>Email</Text>
-                            <TextInput style={styles.email_text} onChangeText={(text) => set_email(text)} placeholder='Email' >
-                            </TextInput>
-                        </View>
+                            <View style={{ marginTop: 40, }}>
+                                <Text style={{ fontSize: 20, color: '#7FFFDD', marginLeft: 15, }}>Email</Text>
+                                <TextInput style={styles.email_text} onChangeText={(text) => set_email(text)} placeholder='Email' >
+                                </TextInput>
+                            </View>
 
-                        <View style={{ marginTop: 20,}}>
-                            <Text style={{ fontSize: 20, color: '#7FFFDD', marginLeft: 15,}}>Password</Text>
-                            <TextInput style={styles.email_text} onChangeText={(text) => set_password(text)} placeholder='Password'>
-                            </TextInput>
-                        </View>
+                            <View style={{ marginTop: 20, }}>
+                                <Text style={{ fontSize: 20, color: '#7FFFDD', marginLeft: 15, }}>Password</Text>
+                                <TextInput style={styles.email_text} onChangeText={(text) => set_password(text)} placeholder='Password'>
+                                </TextInput>
+                            </View>
 
-                        <TouchableOpacity style={styles.submit_button} onPress={user_login}>
-                            <Text style={{fontSize: 24, color: 'white'}}>Login</Text>
-                        </TouchableOpacity>
+                            <TouchableOpacity style={styles.submit_button} onPress={user_login}>
+                                <Text style={{ fontSize: 24, color: 'white' }}>Login</Text>
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                    </View>
-                    
+
 
                 </View>
                 <View style={styles.login_illustration_con}>

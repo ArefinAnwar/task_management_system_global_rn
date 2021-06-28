@@ -83,7 +83,6 @@ export default function add_task_page({ navigation }) {
 
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => { navigation.openDrawer() }}><Text style = {{ fontSize: 20,}}>Open Sidebar</Text></TouchableOpacity>
                 <View style={{ width: '100%', marginTop: 30, alignItems: 'center', justifyContent: 'center' }}>
                     <View style={styles.add_task_con}>
 

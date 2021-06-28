@@ -6,6 +6,8 @@ import { firebaseConfig } from "../Firebase_config";// Firebase Library
 import "firebase/storage";// Firebase Library
 import 'firebase/auth';
 
+import moment from 'moment';
+
 import tick from '../assets/check.png';
 import cross from '../assets/close.png';
 
@@ -18,6 +20,7 @@ import task_done_illus from '../assets/Task is Done.png';
 
 
 export default function view_task_page({ route, navigation }) {
+
 
     var data = route.params;
 
@@ -48,6 +51,8 @@ export default function view_task_page({ route, navigation }) {
 
     const [task_deadline, set_task_deadline] = React.useState(null);
 
+    const [submission_date_international, set_submission_date_international] = React.useState("");
+
     const [task_owner, set_task_owner] = React.useState(null);
 
     const [t_id, set_t_id] = React.useState(null);
@@ -56,7 +61,7 @@ export default function view_task_page({ route, navigation }) {
 
 
 
-    console.log(data.data);
+    //console.log(data.data);
     var task = {
         Task_Heading: task_heading,
         Task_Body: task_body,
@@ -67,11 +72,18 @@ export default function view_task_page({ route, navigation }) {
 
     var temporary_done_by_list = []; //temporary storing recipe data
     var time = new Date();
-    console.log(
-        time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
-    );
+    //console.log(
+    //     time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
+    //);
+
+    //console.log(k);
+
     const task_is_done = () => {
+
+        var k = new Date();
+        //console.log(k);
         var today = new Date();
+
         var dd = String(today.getDate()).padStart(2, '0');
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = today.getFullYear();
@@ -79,6 +91,8 @@ export default function view_task_page({ route, navigation }) {
         var today = mm + '/' + dd + '/' + yyyy;
 
         var time = new Date();
+
+
 
         var current_time = time.toLocaleString('en-US', { hour: 'numeric', minute: 'numeric', hour12: true })
 
@@ -93,9 +107,12 @@ export default function view_task_page({ route, navigation }) {
                 Name: user_name,
                 Submission_Date: today,
                 Submission_Time: current_time,
+                Submission_Date_International: k,
             }).then(() => { set_user_task_done(true) })
     };
+
     const will_not_do_task = () => {
+
         firebase.default
             .firestore()
             .collection("tasks")
@@ -106,10 +123,38 @@ export default function view_task_page({ route, navigation }) {
             .delete().then(() => { set_user_task_done(false) });
     };
     React.useEffect(() => {
+        var today = new Date();
+        var dd = String(today.getDate()).padStart(2, '0');
+        var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+        var yyyy = today.getFullYear();
 
+        today = dd + '/' + mm + '/' + yyyy;
+        //console.log("Curren date", today);
+
+        var date = task_deadline;
+
+        //console.log(date);
+        console.log("Function is running!");
+        //console.log(moment(date, "DD/MM/YYYY").isSame(moment(today, "DD/MM/YYYY")));
+        if (moment(date, "DD/MM/YYYY").isSame(moment(today, "DD/MM/YYYY"))) {
+            set_deadline_expired(true);
+            console.log("Is a", deadline_expired);
+        }
+        else if (moment(date, "DD/MM/YYYY").isBefore(moment(today, "DD/MM/YYYY"))) {
+            set_deadline_expired(true);
+            console.log("Is a", deadline_expired);
+        }
+        else if (moment(date, "DD/MM/YYYY").isAfter(moment(today, "DD/MM/YYYY"))) {
+            set_deadline_expired(false);
+            console.log("Is a", deadline_expired);
+        }
+        else {
+            set_deadline_expired(false);
+            console.log("Is a", deadline_expired);
+        }
         const v = firebase.default.auth().currentUser.uid;
 
-
+        console.log("Data fetching")
         //////////////////////////? User Data ///////////////////////////////
         firebase.default.firestore().collection('users').doc(v).get().then((doc) => {
             if (doc.exists) {
@@ -118,7 +163,7 @@ export default function view_task_page({ route, navigation }) {
                 const b = doc.data().User_Password; //fetching data and storing it
                 //const i = doc.data().image_base64_str_Database;
 
-                console.log(n)
+                //console.log(n)
 
                 //checking if value = null
                 if (user_name == "") {
@@ -159,9 +204,37 @@ export default function view_task_page({ route, navigation }) {
                     const o = doc.data().Task_Owner;
                     const td = doc.data().Id;  //Temporary storing task ID
 
+                    var today = new Date();
+                    var dd = String(today.getDate()).padStart(2, '0');
+                    var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
+                    var yyyy = today.getFullYear();
 
+                    today = dd + '/' + mm + '/' + yyyy;
+                    //console.log("Curren date", today);
 
-                    console.log(h)
+                    var date = task_deadline;
+
+                    //console.log(date);
+                    console.log("Function is running!");
+                    //console.log(moment(date, "DD/MM/YYYY").isSame(moment(today, "DD/MM/YYYY")));
+                    if (moment(date, "DD/MM/YYYY").isSame(moment(today, "DD/MM/YYYY"))) {
+                        set_deadline_expired(true);
+                        console.log("Is a", deadline_expired);
+                    }
+                    else if (moment(date, "DD/MM/YYYY").isBefore(moment(today, "DD/MM/YYYY"))) {
+                        set_deadline_expired(true);
+                        console.log("Is a", deadline_expired);
+                    }
+                    else if (moment(date, "DD/MM/YYYY").isAfter(moment(today, "DD/MM/YYYY"))) {
+                        set_deadline_expired(false);
+                        console.log("Is a", deadline_expired);
+                    }
+                    else {
+                        set_deadline_expired(false);
+                        console.log("Is a", deadline_expired);
+                    }
+
+                    //console.log(h)
 
                     if (task_body == null && task_heading == null && task_owner == null && t_id == null) {
                         //checking if value = null
@@ -213,12 +286,19 @@ export default function view_task_page({ route, navigation }) {
                 .get()
                 .then((doc) => {
                     if (doc.exists) {
+                        const h = doc.data().Submission_Date_International; //fetching data and storing it
+                        // console.log(h);
                         set_user_task_done(true);
-                        console.log('Exists');
+
+
+
+
+
+                        //console.log('Exists');
                     }
                     else {
                         set_user_task_done(false);
-                        console.log('Does not exist!')
+                        //constconsole.log('Does not exist!')
                     };
 
                 }).catch((e) => {
@@ -227,25 +307,18 @@ export default function view_task_page({ route, navigation }) {
             navigation.setOptions({
                 title: task_heading,
             });
+
         };
+
 
 
         //////////////////////////? End Done Data ///////////////////////////////
 
     }
     );
-    const add_task = () => {
-        firebase.default
-            .firestore()
-            .collection("tasks")
-            .add({
-                task,
-            })
-            .then((snapshot) => {
-                d.Id = snapshot.id;
-                snapshot.set(d);
-            });
-    };
+
+
+
 
     const delete_task = () => {
         navigation.navigate('Tasks');
@@ -262,7 +335,7 @@ export default function view_task_page({ route, navigation }) {
 
                     {(() => {
 
-                        if (!deadline_expired) {
+                        if (deadline_expired === false) {
                             return (
                                 <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', marginTop: 25 }}>
                                     <View style={{ flex: 1, alignSelf: 'stretch', /*borderWidth: 5, borderColor: 'black',*/ justifyContent: 'center' }}>
@@ -285,7 +358,7 @@ export default function view_task_page({ route, navigation }) {
                                 </View>
                             )
                         }
-                        if (deadline_expired) {
+                        else if (deadline_expired === true) {
                             return (
                                 <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center' }}>
                                     <View style={styles.deadline_expired}>
@@ -303,7 +376,15 @@ export default function view_task_page({ route, navigation }) {
                     })()}
 
                 </View>
-                <TouchableOpacity onPress={() => { navigation.openDrawer() }}><Text style={{ fontSize: 20, }}>Open Sidebar</Text></TouchableOpacity>
+
+                <TouchableOpacity onPress={() => {
+                    if (deadline_expired === true) {
+                        set_deadline_expired(false)
+                    }
+                    if (deadline_expired === false) {
+                        set_deadline_expired(false)
+                    }
+                }}><Text style={{ fontSize: 20, }}>Open Sidebar</Text></TouchableOpacity>
                 <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center' }}>
                     <View style={styles.task_body_con}>
                         <ScrollView>
