@@ -88,7 +88,7 @@ export default function view_task_page({ route, navigation }) {
         var mm = String(today.getMonth() + 1).padStart(2, '0'); //January is 0!
         var yyyy = today.getFullYear();
 
-        var today = mm + '/' + dd + '/' + yyyy;
+        var today = dd + '/' + mm + '/' + yyyy;
 
         var time = new Date();
 
@@ -129,11 +129,12 @@ export default function view_task_page({ route, navigation }) {
         var yyyy = today.getFullYear();
 
         today = dd + '/' + mm + '/' + yyyy;
-        //console.log("Curren date", today);
+        console.log("Curren date", today);
 
         var date = task_deadline;
 
-        //console.log(date);
+        console.log("Task Deadline:", date);
+
         console.log("Function is running!");
         //console.log(moment(date, "DD/MM/YYYY").isSame(moment(today, "DD/MM/YYYY")));
         if (moment(date, "DD/MM/YYYY").isSame(moment(today, "DD/MM/YYYY"))) {
@@ -202,6 +203,7 @@ export default function view_task_page({ route, navigation }) {
                     const h = doc.data().Task_Heading; //fetching data and storing it
                     const b = doc.data().Task_Body; //fetching data and storing it
                     const o = doc.data().Task_Owner;
+                    const d = doc.data().Task_Deadline;
                     const td = doc.data().Id;  //Temporary storing task ID
 
                     var today = new Date();
@@ -215,32 +217,16 @@ export default function view_task_page({ route, navigation }) {
                     var date = task_deadline;
 
                     //console.log(date);
-                    console.log("Function is running!");
-                    //console.log(moment(date, "DD/MM/YYYY").isSame(moment(today, "DD/MM/YYYY")));
-                    if (moment(date, "DD/MM/YYYY").isSame(moment(today, "DD/MM/YYYY"))) {
-                        set_deadline_expired(true);
-                        console.log("Is a", deadline_expired);
-                    }
-                    else if (moment(date, "DD/MM/YYYY").isBefore(moment(today, "DD/MM/YYYY"))) {
-                        set_deadline_expired(true);
-                        console.log("Is a", deadline_expired);
-                    }
-                    else if (moment(date, "DD/MM/YYYY").isAfter(moment(today, "DD/MM/YYYY"))) {
-                        set_deadline_expired(false);
-                        console.log("Is a", deadline_expired);
-                    }
-                    else {
-                        set_deadline_expired(false);
-                        console.log("Is a", deadline_expired);
-                    }
+
 
                     //console.log(h)
 
-                    if (task_body == null && task_heading == null && task_owner == null && t_id == null) {
+                    if (task_body == null && task_heading == null && task_owner == null && t_id == null && task_deadline == null) {
                         //checking if value = null
                         set_task_body(b);
                         set_task_heading(h);
                         set_task_owner(o);
+                        set_task_deadline(d);
                         set_t_id(td); //Storing task ID
 
                         set_task_data_received(true);
@@ -360,31 +346,33 @@ export default function view_task_page({ route, navigation }) {
                         }
                         else if (deadline_expired === true) {
                             return (
-                                <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center' }}>
-                                    <View style={styles.deadline_expired}>
-                                        <Text style={{ color: 'white', fontSize: 18, }}>Deadline Expired</Text>
+                                <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', marginTop: 25 }}>
+                                    <View style={{ flex: 1, alignSelf: 'stretch', /*borderWidth: 5, borderColor: 'black',*/ justifyContent: 'center' }}>
+                                        <View style={styles.deadline_expired}>
+                                            <Text style={{ color: 'white', fontSize: 18, }}>Deadline Expired</Text>
 
+                                        </View>
                                     </View>
 
-                                    <Text style={{ fontSize: 30, marginTop: 50, }}>{task_heading}</Text>
-                                    <View style={styles.task_owner}>
-                                        <Text style={{ color: 'white', fontSize: 18 }}>Owner: {task_owner}</Text>
+                                    <View style={{ flex: 1, alignSelf: 'stretch', /*borderWidth: 5, borderColor: 'black',*/ alignItems: 'center', justifyContent: 'center' }}>
+                                        <Text style={{ fontSize: 30, }}>{task_heading}</Text>
                                     </View>
+
+                                    <View style={{ flex: 1, alignSelf: 'stretch', /*borderWidth: 5, borderColor: 'black',*/ alignItems: 'flex-start', justifyContent: 'center' }}>
+                                        <View style={styles.task_owner}>
+                                            <Text style={{ color: 'white', fontSize: 18 }}>Owner: {task_owner}</Text>
+                                        </View>
+                                    </View>
+
                                 </View>
+
                             )
                         }
                     })()}
 
                 </View>
 
-                <TouchableOpacity onPress={() => {
-                    if (deadline_expired === true) {
-                        set_deadline_expired(false)
-                    }
-                    if (deadline_expired === false) {
-                        set_deadline_expired(false)
-                    }
-                }}><Text style={{ fontSize: 20, }}>Open Sidebar</Text></TouchableOpacity>
+
                 <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center' }}>
                     <View style={styles.task_body_con}>
                         <ScrollView>
@@ -437,6 +425,9 @@ export default function view_task_page({ route, navigation }) {
                                 return (
                                     <View style={{ flexDirection: 'row', width: '80%', alignItems: 'center', justifyContent: 'center' }}>
                                         <View style={{ flexDirection: 'row', width: 1117, }}>
+                                            <View><Image style={{ width: 174, height: 132, marginTop: 30, }} /></View>
+
+                                            <View><Image style={{ width: 174, height: 132, marginLeft: 30, marginTop: 30, }} /></View>
 
                                             {(() => {
                                                 if (user_task_done) {
@@ -461,9 +452,11 @@ export default function view_task_page({ route, navigation }) {
                                                 };
                                             })()}
 
+
                                         </View>
 
                                     </View>
+
 
 
                                 )
@@ -515,6 +508,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#F83C3C',
 
         borderRadius: 25,
+        marginLeft: 120,
 
         alignItems: 'center',
         justifyContent: 'center',

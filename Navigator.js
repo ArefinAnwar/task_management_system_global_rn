@@ -23,15 +23,18 @@ import task_done_by_code from './pages/task_done_by';
 const Stack = createStackNavigator();
 
 export function Navigator() {
+  
   return (
     <NavigationContainer>
-      <Stack.Navigator initialRouteName="Login">
+      <Stack.Navigator initialRouteName="Login" >
         <Stack.Screen
           name="Login"
           component={login_code}
+          
           options={{ 
             title: 'Login',
-            headerShown: false
+            headerShown: false,
+            header: 'ho',
           }}
         />
         <Stack.Screen
@@ -44,6 +47,7 @@ export function Navigator() {
         <Stack.Screen
           name="Tasks"
           component={to_do_code}
+
           options={{ 
             title: 'Tasks',
             headerShown: false

@@ -38,10 +38,10 @@ export default function Tasks({ navigation }) {
 
                 
                     set_task_list(temporary_task_list);  //we are pushing data from temp list to final recipe list
-                    console.log(task_list);
+                    //console.log(task_list);
                 
             });
-        console.log(task_list);
+        //console.log(task_list);
         /*
         firebase.default.firestore().collection('tasks').get().then((doc) => {
             
@@ -91,11 +91,11 @@ export default function Tasks({ navigation }) {
         var yyyy = today.getFullYear();
 
         today = dd + '/' + mm + '/' + yyyy;
-        console.log("Curren date", today)
+        //console.log("Curren date", today)
 
         
-        console.log(date);
-        console.log(moment(date, "DD/MM/YYYY").isSame(moment(today, "DD/MM/YYYY")));
+        //console.log(date);
+        //console.log(moment(date, "DD/MM/YYYY").isSame(moment(today, "DD/MM/YYYY")));
         if (moment(date, "DD/MM/YYYY").isSame(moment(today, "DD/MM/YYYY"))) {
             return true;
         }
@@ -112,7 +112,7 @@ export default function Tasks({ navigation }) {
         let date = '03/05/2017'; //DD/MM/YYYY
         // specified parsed date
         let d = '03/05/2017';  // specified parsed date
-        console.log(moment(date, "DD/MM/YYYY").isSame(moment(d, "DD/MM/YYYY")));
+        //console.log(moment(date, "DD/MM/YYYY").isSame(moment(d, "DD/MM/YYYY")));
         return (
             <View style={styles.background_container}>
                 <View style={styles.main_content}>
@@ -145,7 +145,7 @@ export default function Tasks({ navigation }) {
                                     <View style={{ flexDirection: 'row' }}>
                                         <TouchableOpacity style={styles.view_task_but} onPress={() => {
 
-                                            console.log(item.Id)
+                                            //console.log(item.Id);
                                             navigation.navigate("View Tasks", {
                                                 data: item.Id,
                                             });

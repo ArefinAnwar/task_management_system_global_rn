@@ -2,6 +2,12 @@ import { set } from 'mockdate';
 import React from 'react';
 import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native';
 import Skeleton from 'react-loading-skeleton';
+import {
+    BrowserRouter as Router,
+    Switch,
+    Route,
+    Link
+} from "react-router-dom";
 
 import * as firebase from "firebase";// Firebase Library
 import { firebaseConfig } from "../Firebase_config";// Firebase Library
@@ -90,6 +96,13 @@ export default function sign_up_page({ navigation }) {
                             <TouchableOpacity style={styles.submit_button} onPress={user_login}>
                                 <Text style={{ fontSize: 24, color: 'white' }}>Login</Text>
                             </TouchableOpacity>
+                            <View style={{
+                                width: 292, height: 49, alignItems: 'center', justifyContent: 'center'
+                            }}>
+                                <Text style = {{ color: '#7FFFDD', fontSize: 16, fontWeight: 'bold'}}>Don't have an account yet?<TouchableOpacity onPress = {()=> {navigation.navigate('Sign-up')}}><Text style = {{color: '#00F0FF', fontSize: 16}}> Sign up</Text></TouchableOpacity></Text>
+                                
+                            </View>
+
                         </View>
                     </View>
 

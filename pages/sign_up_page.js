@@ -16,7 +16,7 @@ if (!firebase.default.apps.length) {
 import Sign_illus from "./components/sign_up_page_illustration";
 
 
-export default function sign_up_page() {
+export default function sign_up_page({navigation}) {
     const [user_email, set_user_email] = React.useState(null);
     const [user_password, set_user_password] = React.useState('');
     const [user_name, set_user_name] = React.useState(null);
@@ -91,7 +91,7 @@ export default function sign_up_page() {
                                 if (user_added) {
                                     return (
                                         <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center' }}>
-                                            <View style={{ width: 292, height: 49, backgroundColor: '#'}}>
+                                            <View style={{ width: 292, height: 49, backgroundColor: '#' }}>
 
                                             </View>
                                         </View>
@@ -138,6 +138,13 @@ export default function sign_up_page() {
                             <TouchableOpacity style={styles.submit_button} onPress={add_user}>
                                 <Text style={{ fontSize: 24, color: 'white' }}>Create Account</Text>
                             </TouchableOpacity>
+
+                            <View style={{
+                                width: 292, height: 49, alignItems: 'center', justifyContent: 'center'
+                            }}>
+                                <Text style={{ color: '#7FFFDD', fontSize: 16, fontWeight: 'bold' }}>Already have an account?<TouchableOpacity onPress={() => { navigation.navigate('Login') }}><Text style={{ color: '#00F0FF', fontSize: 16 }}> Sign in</Text></TouchableOpacity></Text>
+
+                            </View>
 
                         </View>
                     </View>
