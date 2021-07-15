@@ -42,47 +42,7 @@ export default function Tasks({ navigation }) {
                 
             });
         //console.log(task_list);
-        /*
-        firebase.default.firestore().collection('tasks').get().then((doc) => {
-            
-                var t_h = doc.data().Task_Heading;
-                var t_b = doc.data().Task_Body;
-                var t_d = doc.data().Task_Deadline;
-
-                //const i = doc.data().image_base64_str_Database;
-
-               
-
-                //checking if value = null
-                set_task_heading(t_h); //setting heading
-                set_task_body(t_b); //setting Body
-                set_task_deadline(t_d); //setting Deadline
-                //setbodytext(b); //setting body text
-                //set_image_base64_str(i);
-                console.log(doc);
-        });*/
-        /*
-        firebase.default.firestore().collection('users').doc(data.userID).get().then((doc) => {
-            if (doc.exists) {
-                const n = doc.data().User_Name;
-                const e = doc.data().User_Email; //fetching data and storing it
-                const b = doc.data().User_Password; //fetching data and storing it
-
-                //const i = doc.data().image_base64_str_Database;
-
-                console.log(n)
-
-                //checking if value = null
-                set_user_name_with_hello('Hello, ' + n); //setting heading
-                set_user_name(n);
-                set_user_mail(e);
-                //setbodytext(b); //setting body text
-                //set_image_base64_str(i);
-            }
-            else {
-                console.log("Data not found!")
-            }
-        });*/
+        
     });
     const check_if_deadline_expired = (date) => {
         var today = new Date();
@@ -117,6 +77,13 @@ export default function Tasks({ navigation }) {
             <View style={styles.background_container}>
                 <View style={styles.main_content}>
                     <View style={{ marginTop: 50, width: '100%', flexDirection: 'row', justifyContent: 'center', alignItems: 'center' }}>
+
+                        <TouchableOpacity onPress={() => { navigation.navigate('Login')}} style = {{position: 'absolute', left: 10,}}>
+                            <View style = {{height: 100}}>
+                                <Image source ={{uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/Frame%2025.png?alt=media&token=c619dfce-de16-478c-bda4-aa154eab0d99'}} style = {{width:221, height: 81}}/>
+                            </View>
+                            
+                        </TouchableOpacity>
                         <Text style={{ fontSize: 30, alignSelf: 'center', color: '#7FFFDD', fontWeight: 'bold' }}>Task Management</Text>
                         <TouchableOpacity onPress={() => { navigation.navigate('Add Task') }} style={{ position: 'absolute', right: 10 }}>
                             <Image source={add_task} style={{ width: 174, height: 132, borderRadius: 25, borderWidth: 1, borderColor: '#BCBCBC', }} />

@@ -1,6 +1,6 @@
 import { set } from 'mockdate'
 import React from 'react'
-import { StyleSheet, Text, View, TextInput, TouchableOpacity } from 'react-native'
+import { StyleSheet, Text, View, TextInput, TouchableOpacity, Image} from 'react-native'
 
 import * as firebase from "firebase";// Firebase Library
 import { firebaseConfig } from "../Firebase_config";// Firebase Library
@@ -91,9 +91,8 @@ export default function sign_up_page({navigation}) {
                                 if (user_added) {
                                     return (
                                         <View style={{ width: '100%', alignItems: 'center', justifyContent: 'center' }}>
-                                            <View style={{ width: 292, height: 49, backgroundColor: '#' }}>
-
-                                            </View>
+                                            
+                                            <Image source = {{uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/Frame%2023.png?alt=media&token=8d03d9bb-5d0c-4053-a97e-9bc600ae1ceb'}} style = {{width:214,height:44}}/>
                                         </View>
 
                                     )

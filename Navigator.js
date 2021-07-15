@@ -34,7 +34,7 @@ export function Navigator() {
           options={{ 
             title: 'Login',
             headerShown: false,
-            header: 'ho',
+            
           }}
         />
         <Stack.Screen
