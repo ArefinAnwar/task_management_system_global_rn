@@ -80,7 +80,9 @@ export default function Tasks({ navigation }) {
 
                         <TouchableOpacity onPress={() => { navigation.navigate('Login')}} style = {{position: 'absolute', left: 10,}}>
                             <View style = {{height: 100}}>
-                                <Image source ={{uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/Frame%2025.png?alt=media&token=c619dfce-de16-478c-bda4-aa154eab0d99'}} style = {{width:221, height: 81}}/>
+                                {/*<Image source ={{uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/Frame%2025.png?alt=media&token=c619dfce-de16-478c-bda4-aa154eab0d99'}} style = {{width:221, height: 81}}/>*/}
+                                <Text style ={{color: "#7FFFDD", fontSize:30, fontWeight: 'bold' }}>Logout</Text>
+
                             </View>
                             
                         </TouchableOpacity>

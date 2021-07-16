@@ -304,7 +304,7 @@ export default function view_task_page({ route, navigation }) {
     );
 
 
-    
+
 
     const delete_task = () => {
         navigation.navigate('Tasks');
@@ -314,7 +314,7 @@ export default function view_task_page({ route, navigation }) {
         })
     };
 
-    const cancel_task_illus_url = {uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/Cancel%20Task.png?alt=media&token=c55ae805-feb7-4ac6-9ff5-1637e79391e4'};
+    const cancel_task_illus_url = { uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/Cancel%20Task.png?alt=media&token=c55ae805-feb7-4ac6-9ff5-1637e79391e4' };
 
     return (
         <View style={styles.background_container}>
@@ -322,52 +322,52 @@ export default function view_task_page({ route, navigation }) {
                 <View style={{ width: '100%', flexDirection: 'row' }}>
 
                     {(() => {
-                        if (deadline_expired === false) { 
+                        if (deadline_expired === false) {
                             return (
                                 <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', marginTop: 25 }}>
                                     <View style={{ flex: 1, alignSelf: 'stretch', /*borderWidth: 5, borderColor: 'black',*/ justifyContent: 'center' }}>
                                         <View style={styles.ongoing_task}>
                                             <Text style={{ color: 'white', fontSize: 18, }}>Ongoing</Text>
-                    
+
                                         </View>
                                     </View>
-                    
+
                                     <View style={{ flex: 1, alignSelf: 'stretch', /*borderWidth: 5, borderColor: 'black',*/ alignItems: 'center', justifyContent: 'center' }}>
                                         <Text style={{ fontSize: 30, }}>{task_heading}</Text>
                                     </View>
-                    
+
                                     <View style={{ flex: 1, alignSelf: 'stretch', /*borderWidth: 5, borderColor: 'black',*/ alignItems: 'flex-start', justifyContent: 'center' }}>
                                         <View style={styles.task_owner}>
                                             <Text style={{ color: 'white', fontSize: 18 }}>Owner: {task_owner}</Text>
                                         </View>
                                     </View>
-                    
+
                                 </View>
                             )
                         }
 
-                        else if (deadline_expired === true) { 
+                        else if (deadline_expired === true) {
                             return (
                                 <View style={{ width: '100%', flexDirection: 'row', alignItems: 'center', marginTop: 25 }}>
                                     <View style={{ flex: 1, alignSelf: 'stretch', /*borderWidth: 5, borderColor: 'black',*/ justifyContent: 'center' }}>
                                         <View style={styles.deadline_expired}>
                                             <Text style={{ color: 'white', fontSize: 18, }}>Deadline Expired</Text>
-                    
+
                                         </View>
                                     </View>
-                    
+
                                     <View style={{ flex: 1, alignSelf: 'stretch', /*borderWidth: 5, borderColor: 'black',*/ alignItems: 'center', justifyContent: 'center' }}>
                                         <Text style={{ fontSize: 30, }}>{task_heading}</Text>
                                     </View>
-                    
+
                                     <View style={{ flex: 1, alignSelf: 'stretch', /*borderWidth: 5, borderColor: 'black',*/ alignItems: 'flex-start', justifyContent: 'center' }}>
                                         <View style={styles.task_owner}>
                                             <Text style={{ color: 'white', fontSize: 18 }}>Owner: {task_owner}</Text>
                                         </View>
                                     </View>
-                    
+
                                 </View>
-                    
+
                             )
                         }
                     })()}
@@ -385,89 +385,172 @@ export default function view_task_page({ route, navigation }) {
 
                     <View style={{ width: '100%', flexDirection: 'row', marginTop: -10, alignItems: 'center', justifyContent: 'center' }}>
                         {(() => {
-                            if (user_is_task_owner) {
-                                return (
-                                    <View style={{ flexDirection: 'row', width: '80%', alignItems: 'center', justifyContent: 'center' }}>
-                                        <View style={{ flexDirection: 'row', width: 1117, }}>
-                                            <TouchableOpacity onPress={() => { navigation.navigate('Edit Task', { task_id: t_id }) }}><Image source={{uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/edit.png?alt=media&token=20cfdf05-957e-4b2d-bea8-24a636bf02c1'}} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, }} /></TouchableOpacity>
+                            if (deadline_expired === false) {
+                                if (user_is_task_owner) {
+                                    return (
+                                        <View style={{ flexDirection: 'row', width: '80%', alignItems: 'center', justifyContent: 'center' }}>
+                                            <View style={{ flexDirection: 'row', width: 1117, }}>
+                                                <TouchableOpacity onPress={() => { navigation.navigate('Edit Task', { task_id: t_id }) }}><Image source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/edit.png?alt=media&token=20cfdf05-957e-4b2d-bea8-24a636bf02c1' }} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, }} /></TouchableOpacity>
 
-                                            <TouchableOpacity onPress={delete_task} ><Image source={{uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/delete.png?alt=media&token=6a03edea-d886-493d-985f-33ec311209a0'}} style={{ width: 174, height: 132, marginLeft: 30, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, }} /></TouchableOpacity>
+                                                <TouchableOpacity onPress={delete_task} ><Image source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/delete.png?alt=media&token=6a03edea-d886-493d-985f-33ec311209a0' }} style={{ width: 174, height: 132, marginLeft: 30, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, }} /></TouchableOpacity>
 
-                                            {(() => {
-                                                if (user_task_done) {
-                                                    return (
-                                                        <View style={{ flexDirection: 'row', width: '63%', alignItems: 'center', justifyContent: 'flex-end' }}>
-                                                            <Image source={task_done_illus} style={{ width: 174, height: 132, marginTop: 30, marginRigth: 20, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end' }} />
-                                                            <TouchableOpacity style={styles.not_done_task} onPress={will_not_do_task}>
-                                                                <Image source={cancel_task_illus_url} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end' }} />
-                                                            </TouchableOpacity>
-                                                        </View>
+                                                {(() => {
+                                                    if (user_task_done) {
+                                                        return (
+                                                            <View style={{ flexDirection: 'row', width: '63%', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                                                <Image source={task_done_illus} style={{ width: 174, height: 132, marginTop: 30, marginRigth: 20, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end' }} />
+                                                                <TouchableOpacity style={styles.not_done_task} onPress={will_not_do_task}>
+                                                                    <Image source={cancel_task_illus_url} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end' }} />
+                                                                </TouchableOpacity>
+                                                            </View>
 
-                                                    )
-                                                };
-                                                if (user_task_done === false) {
-                                                    return (
-                                                        <View style={{ flexDirection: 'row', width: '62%', alignItems: 'center', justifyContent: 'flex-end' }}>
-                                                            <TouchableOpacity style={styles.done_task} onPress={task_is_done}>
-                                                                <Image source={{uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/Task%20is%20Done.png?alt=media&token=f2b9d1ae-ad52-46ae-8af7-3312179b1b8e'}} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end' }} />
-                                                            </TouchableOpacity>
-                                                        </View>
-                                                    )
-                                                };
-                                            })()}
+                                                        )
+                                                    };
+                                                    if (user_task_done === false) {
+                                                        return (
+                                                            <View style={{ flexDirection: 'row', width: '62%', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                                                <TouchableOpacity style={styles.done_task} onPress={task_is_done}>
+                                                                    <Image source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/Done%20Task.png?alt=media&token=98b96f15-73c9-4be0-a05c-bf57bfc0ffc9' }} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end' }} />
+                                                                </TouchableOpacity>
+                                                            </View>
+                                                        )
+                                                    };
+                                                })()}
+
+                                            </View>
 
                                         </View>
 
-                                    </View>
+
+                                    )
+                                }
+                                else {
+                                    return (
+                                        <View style={{ flexDirection: 'row', width: '80%', alignItems: 'center', justifyContent: 'center' }}>
+                                            <View style={{ flexDirection: 'row', width: 1117, }}>
+                                                <View><Image style={{ width: 174, height: 132, marginTop: 30, }} /></View>
+
+                                                <View><Image style={{ width: 174, height: 132, marginLeft: 30, marginTop: 30, }} /></View>
+
+                                                {(() => {
+                                                    if (user_task_done) {
+                                                        return (
+                                                            <View style={{ flexDirection: 'row', width: '63%', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                                                <Image source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/Task%20is%20Done.png?alt=media&token=f2b9d1ae-ad52-46ae-8af7-3312179b1b8e' }} style={{ width: 174, height: 132, marginTop: 30, marginRigth: 20, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end' }} />
+                                                                <TouchableOpacity style={styles.not_done_task} onPress={will_not_do_task}>
+                                                                    <Image source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/Cancel%20Task.png?alt=media&token=c55ae805-feb7-4ac6-9ff5-1637e79391e4' }} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end' }} />
+                                                                </TouchableOpacity>
+                                                            </View>
+
+                                                        )
+                                                    };
+                                                    if (user_task_done === false) {
+                                                        return (
+                                                            <View style={{ flexDirection: 'row', width: '62%', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                                                <TouchableOpacity style={styles.done_task} onPress={task_is_done}>
+                                                                    <Image source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/Done%20Task.png?alt=media&token=98b96f15-73c9-4be0-a05c-bf57bfc0ffc9' }} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end' }} />
+                                                                </TouchableOpacity>
+                                                            </View>
+                                                        )
+                                                    };
+                                                })()}
 
 
-                                )
+                                            </View>
+
+                                        </View>
+
+
+
+                                    )
+                                };
                             }
-                            else {
-                                return (
-                                    <View style={{ flexDirection: 'row', width: '80%', alignItems: 'center', justifyContent: 'center' }}>
-                                        <View style={{ flexDirection: 'row', width: 1117, }}>
-                                            <View><Image style={{ width: 174, height: 132, marginTop: 30, }} /></View>
+                            
+                            else { //deadline expired case
+                                if (user_is_task_owner) {
+                                    return (
+                                        <View style={{ flexDirection: 'row', width: '80%', alignItems: 'center', justifyContent: 'center' }}>
+                                            <View style={{ flexDirection: 'row', width: 1117, }}>
+                                                <TouchableOpacity onPress={() => { navigation.navigate('Edit Task', { task_id: t_id }) }}><Image source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/edit.png?alt=media&token=20cfdf05-957e-4b2d-bea8-24a636bf02c1' }} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, }} /></TouchableOpacity>
 
-                                            <View><Image style={{ width: 174, height: 132, marginLeft: 30, marginTop: 30, }} /></View>
+                                                <TouchableOpacity onPress={delete_task} ><Image source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/delete.png?alt=media&token=6a03edea-d886-493d-985f-33ec311209a0' }} style={{ width: 174, height: 132, marginLeft: 30, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, }} /></TouchableOpacity>
 
-                                            {(() => {
-                                                if (user_task_done) {
-                                                    return (
-                                                        <View style={{ flexDirection: 'row', width: '63%', alignItems: 'center', justifyContent: 'flex-end' }}>
-                                                            <Image source={{uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/Task%20is%20Done.png?alt=media&token=f2b9d1ae-ad52-46ae-8af7-3312179b1b8e'}} style={{ width: 174, height: 132, marginTop: 30, marginRigth: 20, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end' }} />
-                                                            <TouchableOpacity style={styles.not_done_task} onPress={will_not_do_task}>
-                                                                <Image source={{uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/Cancel%20Task.png?alt=media&token=c55ae805-feb7-4ac6-9ff5-1637e79391e4'}} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end' }} />
-                                                            </TouchableOpacity>
-                                                        </View>
+                                                {(() => {
+                                                    if (user_task_done) {
+                                                        return (
+                                                            <View style={{ flexDirection: 'row', width: '63%', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                                                <Image source={task_done_illus} style={{ width: 174, height: 132, marginTop: 30, marginRigth: 20, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end', opacity: 0.5 }} />
+                                                                <View style={styles.not_done_task} >
+                                                                    <Image source={cancel_task_illus_url} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end', opacity: 0.5 }} />
+                                                                </View>
+                                                            </View>
 
-                                                    )
-                                                };
-                                                if (user_task_done === false) {
-                                                    return (
-                                                        <View style={{ flexDirection: 'row', width: '62%', alignItems: 'center', justifyContent: 'flex-end' }}>
-                                                            <TouchableOpacity style={styles.done_task} onPress={task_is_done}>
-                                                                <Image source={{uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/Done%20Task.png?alt=media&token=98b96f15-73c9-4be0-a05c-bf57bfc0ffc9'}} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end' }} />
-                                                            </TouchableOpacity>
-                                                        </View>
-                                                    )
-                                                };
-                                            })()}
+                                                        )
+                                                    };
+                                                    if (user_task_done === false) {
+                                                        return (
+                                                            <View style={{ flexDirection: 'row', width: '62%', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                                                <View style={styles.done_task} >
+                                                                    <Image source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/Done%20Task.png?alt=media&token=98b96f15-73c9-4be0-a05c-bf57bfc0ffc9' }} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end', opacity: 0.5 }} />
+                                                                </View>
+                                                            </View>
+                                                        )
+                                                    };
+                                                })()}
 
+                                            </View>
 
                                         </View>
 
-                                    </View>
+
+                                    )
+                                }
+                                else { //For random user case
+                                    return (
+                                        <View style={{ flexDirection: 'row', width: '80%', alignItems: 'center', justifyContent: 'center' }}>
+                                            <View style={{ flexDirection: 'row', width: 1117, }}>
+                                                <View><Image style={{ width: 174, height: 132, marginTop: 30, }} /></View>
+
+                                                <View><Image style={{ width: 174, height: 132, marginLeft: 30, marginTop: 30, }} /></View>
+
+                                                {(() => {
+                                                    if (user_task_done) {
+                                                        return (
+                                                            <View style={{ flexDirection: 'row', width: '63%', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                                                <Image source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/Task%20is%20Done.png?alt=media&token=f2b9d1ae-ad52-46ae-8af7-3312179b1b8e' }} style={{ width: 174, height: 132, marginTop: 30, marginRigth: 20, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end', opacity: 0.5 }} />
+                                                                <View style={styles.not_done_task} >
+                                                                    <Image source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/Cancel%20Task.png?alt=media&token=c55ae805-feb7-4ac6-9ff5-1637e79391e4' }} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end' , opacity: 0.5}} />
+                                                                </View>
+                                                            </View>
+
+                                                        )
+                                                    };
+                                                    if (user_task_done === false) {
+                                                        return (
+                                                            <View style={{ flexDirection: 'row', width: '62%', alignItems: 'center', justifyContent: 'flex-end' }}>
+                                                                <View style={styles.done_task} onPress={task_is_done}>
+                                                                    <Image source={{ uri: 'https://firebasestorage.googleapis.com/v0/b/hr-management-system-ade34.appspot.com/o/Done%20Task.png?alt=media&token=98b96f15-73c9-4be0-a05c-bf57bfc0ffc9' }} style={{ width: 174, height: 132, marginTop: 30, borderWidth: 1, borderColor: '#BCBCBC', borderRadius: 25, alignSelf: 'flex-end' , opacity: 0.5}} />
+                                                                </View>
+                                                            </View>
+                                                        )
+                                                    };
+                                                })()}
+
+
+                                            </View>
+
+                                        </View>
 
 
 
-                                )
-                            };
+                                    )
+                                };
+                            }
                         })()}
 
 
                     </View>
-                    <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', marginTop: -10, width: 84, height: 25, borderRadius: 25, backgroundColor: '#7FFFDD' }} onPress={() => { navigation.navigate('Task Done By', { data: t_id }) }}><Text style={{ color: 'white', fontSize: 12 }}>Task Done By</Text></TouchableOpacity>
+                    <TouchableOpacity style={{ alignItems: 'center', justifyContent: 'center', width: 84, height: 25, borderRadius: 25, backgroundColor: '#7FFFDD' }} onPress={() => { navigation.navigate('Task Done By', { data: t_id }) }}><Text style={{ color: 'white', fontSize: 12 }}>Task Done By</Text></TouchableOpacity>
 
 
                 </View>
